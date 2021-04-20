@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Копипаста</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center">Копипаста<span id="ver">v1</span></h1>
+            <section id="cat-box" class="mb-2">
+                <div class="form-check form-check-inline">
+                    <input
+                            class="form-check-input"
+                            type="radio"
+                            name="category"
+                            id="cat-0"
+                            value="0"
+                            checked>
+                    <label class="form-check-label" for="cat-0">
+                        Все ({{ all }})
+                    </label>
+                </div>
+                {% if cats %}
+                {% for cat in cats %}
+                <div class="form-check form-check-inline">
+                    <input
+                            class="form-check-input"
+                            type="radio"
+                            name="category"
+                            id="cat-{{ cat.id }}"
+                            value="{{ cat.id }}">
+                    <label class="form-check-label" for="cat-{{ cat.id }}">
+                        {{ cat.name }} ({{ cat.qty }})
+                    </label>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </section>
+            <section id="pasta">
+                <header id="pasta-head">{{ item.title }}</header>
+                <p id="pasta-body">{{ item.text }}</p>
+            </section>
+            <section id="buttons" class="text-center">
+                <a
+                        id="btn-prev"
+                        class="btn btn-primary btn-lg"
+                        href="?action=prev">
+                    Назад
+                </a>
+                <a
+                        id="btn-rand"
+                        class="btn btn-primary btn-lg"
+                        href="?action=random">
+                    Случайно
+                </a>
+                <a
+                        id="btn-next"
+                        class="btn btn-primary btn-lg"
+                        href="?action=next">
+                    Вперёд
+                </a>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
