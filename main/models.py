@@ -42,6 +42,14 @@ class Item(models.Model):
     def __str__(self):
         return f'{self.title}'
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'category_id': self.category_id,
+            'title': self.title,
+            'text': self.text
+        }
+
     class Meta:
         verbose_name = 'Элемент'
         verbose_name_plural = 'Элементы'

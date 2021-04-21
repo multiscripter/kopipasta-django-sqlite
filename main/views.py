@@ -1,31 +1,39 @@
 from django.db import connection
-from django.http import HttpResponse, Http404
+from django.http import HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import render
 import logging
 
 from main.models import Item
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('django')
 
 
 def common(request):
     if request.method == 'GET':
+        data = {}
         if request.GET:
-            print(request.GET)
-            return HttpResponse('the Copy-paste index.')
+            item = _get_item(**request.GET)
+        else:
+            item = _get_item()
+
+        if 'HTTP_ACCEPT' in request.META \
+                and request.META['HTTP_ACCEPT'] == 'application/json':
+            item = item.to_dict()
+            data['item'] = item
+            return JsonResponse(data)
         else:
             data = _index()
+            data['item'] = item
             return render(request, 'index.html', data)
     else:
-        raise Http404
+        return HttpResponseNotAllowed(['GET'])
 
 
 def _index():
     cursor = None
     data = {
         'all': 0,
-        'cats': [],
-        'item': None
+        'cats': []
     }
     try:
         cursor = connection.cursor()
@@ -50,23 +58,24 @@ def _index():
                     })
     except Exception as ex:
         logger.error(ex)
+        data['error'] = ex.__str__()
     finally:
         if cursor:
             cursor.close()
-    data['item'] = _get_item()
-    return data
+        return data
 
 
 def _get_item(category_id=None, action=None, current_id=None):
     objects = Item.objects
     if category_id:
-        objects = objects.filter(category_id=category_id)
-    if action in ['prev', 'next'] and current_id:
-        if action == 'prev':
-            objects = objects.filter(id__lte=current_id)
-        elif action == 'next':
-            objects = objects.filter(id__gte=current_id)
+        objects = objects.filter(category_id=category_id[0])
+    if action and action[0] in ['prev', 'next'] and current_id:
+        if action[0] == 'prev':
+            objects = objects.filter(id__lt=current_id[0]).order_by('-id')
+        elif action[0] == 'next':
+            objects = objects.filter(id__gt=current_id[0]).order_by('id')
         item = objects[0]
     else:
         item = objects.order_by('?').first()
     return item
+

@@ -124,3 +124,52 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# При использовании Nginx + Apache2 + mod_wsgi.
+LOG_DIR = os.path.join(BASE_DIR, 'log/')
+
+# https://docs.python.org/3.6/library/logging.html
+# https://docs.python.org/3.6/howto/logging-cookbook.html#an-example-dictionary-based-configuration
+# Установить владельца (www-data) на папку логов.
+# Установить права на папку логов (750).
+# Установить права на фвйлы логов (664).
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s %(levelname)s %(module)s %(filename)s %(message)s'
+        },
+        'message': {
+            'format': '%(asctime)s %(message)s'
+        }
+    },
+    'handlers': {
+        'file-common': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': LOG_DIR + 'kopipasta-common.log',
+            'maxBytes': 1024*1024,
+            'formatter': 'verbose'
+        },
+        'file-db': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': LOG_DIR + 'kopipasta-db.log',
+            'maxBytes': 1024*1024,
+            'formatter': 'message'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file-common'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['file-db'],
+            'level': 'DEBUG',
+            'propagate': False
+        }
+    },
+}

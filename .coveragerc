@@ -1,0 +1,6 @@
+[run]
+include =
+    ./main/models.py
+    ./main/views.py
+omit =
+    */__init__.py

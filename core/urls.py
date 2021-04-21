@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-	# Главная страница сайта.
-	path('', include('main.urls')),
-	# Админка.
+    # Главная страница сайта.
+    path('', include('main.urls')),
+    # Админка.
     path('admin/', admin.site.urls),
 ]
