@@ -6,13 +6,13 @@ from main.models.Category import Category
 from main.models.Item import Item
 
 
-# Запуск тестов класса:
+# Запуск тестов класса через unittests:
 # python manage.py test tests.testIntegration.TestIntegration
 
 # Запуск всех тестов с покрытием через pytest:
 # pytest ./tests/* --cov
 
-# Запуск всех тестов с покрытием через manage.py:
+# Запуск всех тестов с покрытием через unittests:
 # coverage erase
 # coverage run manage.py test
 # coverage html

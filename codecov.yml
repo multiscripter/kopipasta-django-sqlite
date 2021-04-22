@@ -1,0 +1,5 @@
+codecov:
+  token: e71add8f-1a5e-4496-b660-e16ace9bac36
+  bot: "codecov-io"
+  ci:
+    - "travis.org"

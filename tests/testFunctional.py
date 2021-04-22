@@ -6,10 +6,16 @@ from main.models.Category import Category
 from main.models.Item import Item
 
 
-# Запуск тестов класса:
+# Запуск тестов класса через unittests:
 # python manage.py test tests.testFunctional.TestFunctional
-# или pytest:
-# pytest ./tests/*
+
+# Запуск всех тестов с покрытием через pytest:
+# pytest ./tests/* --cov
+
+# Запуск всех тестов с покрытием через unittests:
+# coverage erase
+# coverage run manage.py test
+# coverage html
 
 
 class TestFunctional(StaticLiveServerTestCase):
@@ -24,6 +30,8 @@ class TestFunctional(StaticLiveServerTestCase):
         path = os.path.dirname(__file__)
         # https://github.com/mozilla/geckodriver/releases
         opts = webdriver.FirefoxOptions()
+        # Не запуская гуй брайзера.
+        # Необходимо для Travis CI и других систем без графической оболочки.
         opts.add_argument("--headless")
         cls.browser = webdriver.Firefox(
             executable_path=path + '/../geckodriver',
