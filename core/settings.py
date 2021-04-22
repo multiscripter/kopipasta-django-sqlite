@@ -120,13 +120,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# При использовании python manage.py runserver
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+
+# При использовании Nginx + Apache2 + mod_wsgi.
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+LOG_DIR = os.path.join(BASE_DIR, 'log/')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# При использовании Nginx + Apache2 + mod_wsgi.
-LOG_DIR = os.path.join(BASE_DIR, 'log/')
 
 # https://docs.python.org/3.6/library/logging.html
 # https://docs.python.org/3.6/howto/logging-cookbook.html#an-example-dictionary-based-configuration

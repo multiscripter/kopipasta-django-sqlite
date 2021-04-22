@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from main.models import Category, Item
+from main.models.Category import Category
+from main.models.Item import Item
 
 
 class CategoryAdmin(admin.ModelAdmin):

@@ -13,12 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import RedirectView
+
+from core import settings
 
 urlpatterns = [
     # Главная страница сайта.
     path('', include('main.urls')),
     # Админка.
     path('admin/', admin.site.urls),
-]
+    # Инструкция на случай если favicon.ico не прописан в тэге head страницы
+    # и не настроена отдача favicon.ico в Nginx.
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico'), name='favicon'),
+]# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

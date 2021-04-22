@@ -1,0 +1,58 @@
+body {
+    cursor: default;
+    font-size: 18px;
+    min-width: 320px;
+}
+
+@media (min-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1024px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 1280px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+label {
+    cursor: pointer;
+}
+
+#ver {
+    font-size: 14px;
+}
+
+#cat-box {
+    display: flex;
+    justify-content: center;
+}
+
+#pasta-body {
+    background: #eee;
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+}
+
+#buttons .btn {
+    border-bottom: 5px solid #0053ad;
+}
+
+#buttons .btn:active {
+    border-bottom: none;
+    margin-top: 5px;
+}
+
+#buttons .btn:active,
+#buttons .btn:focus {
+    box-shadow: none;
+    text-shadow: 0 0 3px #fff;
+    transition: none;
+}

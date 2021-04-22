@@ -1,9 +1,70 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Копипаста</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <script src="static/js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(function() {
+            var pastaLoader = {
+                catBox: null,
+                head: null,
+                body: null,
+                buttons: false,
+
+                getPhrase: function(action) {
+                    var self = this;
+                    var params = ['current_id=' + self.head.data('id')];
+                    if (action == 'prev' || action == 'next')
+                        params.push('action=' + action);
+                    var cat = self.catBox.find('input:checked').val()
+                    if (cat && 0 < cat)
+                        params.push('category_id=' + cat);
+                    params = params.join('&');
+                    console.log(params);
+                    url = window.location.origin
+                    if (params)
+                        url += '?' + params
+                    $.ajax({
+                        url: url,
+                        headers: { 'ACCEPT': 'application/json' }
+                    }).done(function(data) {
+                        if (data) {
+                            if (data.hasOwnProperty('item')) {
+                                self.head.data('id', data.item.id);
+                                self.head.text(data.item.title);
+                                self.body.text(data.item.text);
+                            }
+                        }
+                       console.log(data);
+                    });
+                },
+
+                init: function() {
+                    this.catBox = $('#cat-box');
+                    this.head = $('#pasta-head');
+                    this.body = $('#pasta-body');
+                    this.buttons = $('#buttons .btn');
+                    if (this.buttons.length) {
+                        var self = this;
+                        this.buttons.each(function() {
+                            $(this).on('click', function(event) {
+                                event.preventDefault();
+                                action = $(this).attr('href').split('=')[1]
+                                self.getPhrase.call(self, action);
+                            });
+                        });
+                    }
+                }
+            }
+            pastaLoader.init();
+        });
+    </script>
 </head>
 <body class="container">
     <div class="row">
@@ -39,7 +100,13 @@
                 {% endif %}
             </section>
             <section id="pasta">
-                <header id="pasta-head">{{ item.title }}</header>
+                <header>
+                    <h4
+                            id="pasta-head"
+                            class="text-center"
+                            data-id="{{item.id}}"
+                    >{{ item.title }}</h4>
+                </header>
                 <p id="pasta-body">{{ item.text }}</p>
             </section>
             <section id="buttons" class="text-center">

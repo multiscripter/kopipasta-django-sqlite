@@ -1,7 +1,7 @@
 from django.urls import path
 
-from . import views
+from .controllers import common
 
 urlpatterns = [
-    path('', views.common)
+    path('', common.common)
 ]

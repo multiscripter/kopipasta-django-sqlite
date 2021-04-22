@@ -1,6 +1,8 @@
 [run]
 include =
-    ./main/models.py
+    ./main/controllers/*
+    ./main/models/*
+    ./main/services/*
     ./main/views.py
 omit =
     */__init__.py

@@ -1,6 +1,7 @@
 from django.test import TestCase
 
-from main.models import Item, Category
+from main.models.Category import Category
+from main.models.Item import Item
 
 
 class TestModels(TestCase):
