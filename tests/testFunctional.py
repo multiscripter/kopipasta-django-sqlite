@@ -8,6 +8,8 @@ from main.models.Item import Item
 
 # Запуск тестов класса:
 # python manage.py test tests.testFunctional.TestFunctional
+# или pytest:
+# pytest ./tests/*
 
 
 class TestFunctional(StaticLiveServerTestCase):
@@ -16,12 +18,17 @@ class TestFunctional(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         """Действия перед всеми тестами."""
-        exit(1)
+
         super(TestFunctional, cls).setUpClass()
 
         path = os.path.dirname(__file__)
         # https://github.com/mozilla/geckodriver/releases
-        cls.browser = webdriver.Firefox(executable_path=path + '/../geckodriver')
+        opts = webdriver.FirefoxOptions()
+        opts.add_argument("--headless")
+        cls.browser = webdriver.Firefox(
+            executable_path=path + '/../geckodriver',
+            firefox_options=opts
+        )
 
         cls.categories = []
         for name in ['Трах и ненависть', 'Мыты']:

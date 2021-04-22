@@ -9,6 +9,14 @@ from main.models.Item import Item
 # Запуск тестов класса:
 # python manage.py test tests.testIntegration.TestIntegration
 
+# Запуск всех тестов с покрытием через pytest:
+# pytest ./tests/* --cov
+
+# Запуск всех тестов с покрытием через manage.py:
+# coverage erase
+# coverage run manage.py test
+# coverage html
+
 class TestIntegration(TestCase):
     """Интеграционные тесты."""
 

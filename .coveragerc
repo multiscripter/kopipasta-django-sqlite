@@ -1,8 +1,8 @@
 [run]
-include =
-    ./main/controllers/*
-    ./main/models/*
-    ./main/services/*
-    ./main/views.py
+source =
+    ./main/controllers/
+    ./main/models/
+    ./main/services/
+
 omit =
     */__init__.py

@@ -6,12 +6,15 @@ addons:
   firefox: latest
 
 install:
-  - sudo apt-get install firefox-geckodriver
+  # При установке firefox-geckodriver через apt-get,
+  # путь к нему будет автоматически добавлен в $PATH.
+  # Тогда не нужно передавать путь в webdriver.Firefox(executable_path).
+  #- sudo apt-get install firefox-geckodriver
   - pip install -r requirements.txt
 
 # command to run tests
 script:
-  - pytest --cov-report term --cov=. ./tests/*
+  - pytest ./tests/* --cov
 
 notifications:
   email: false
