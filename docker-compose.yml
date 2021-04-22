@@ -2,10 +2,10 @@ version: '3.8'
 
 services:
 
-  kopipasta-django-sqlite-redis:
+  kopipasta-django-sqlite:
     build: .
     command: python manage.py runserver
-    container_name: kopipasta-django-sqlite-redis
+    container_name: kopipasta-django-sqlite
     network_mode: host
     ports:
       - "8000:8000"

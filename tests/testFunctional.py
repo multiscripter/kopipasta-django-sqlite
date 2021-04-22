@@ -16,12 +16,12 @@ class TestFunctional(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         """Действия перед всеми тестами."""
-
+        exit(1)
         super(TestFunctional, cls).setUpClass()
 
         path = os.path.dirname(__file__)
         # https://github.com/mozilla/geckodriver/releases
-        cls.browser = webdriver.Firefox(executable_path=path + '/geckodriver')
+        cls.browser = webdriver.Firefox(executable_path=path + '/../geckodriver')
 
         cls.categories = []
         for name in ['Трах и ненависть', 'Мыты']:

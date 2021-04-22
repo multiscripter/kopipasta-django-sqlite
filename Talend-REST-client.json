@@ -1,0 +1,138 @@
+{
+  "version": 6,
+  "entities": [
+    {
+      "entity": {
+        "type": "Project",
+        "id": "d040fe51-998a-4b8b-b53b-70048b25bd09",
+        "name": "kopipasta"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:8000",
+              "path": "/"
+            },
+            "id": "0a239d02-dbd0-43ad-a9e0-ecf25de04f14",
+            "name": "GET random html",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": [
+                  {
+                    "enabled": true,
+                    "name": "action",
+                    "value": "next"
+                  },
+                  {
+                    "enabled": true,
+                    "name": "current_id",
+                    "value": "5"
+                  }
+                ]
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:8000",
+              "path": ""
+            },
+            "id": "d758dac3-9268-4453-b6d2-6fdf8e8c88f2",
+            "name": "GET random json",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Accept",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:8000",
+              "path": "/"
+            },
+            "id": "1f32be2d-b656-4ff3-9219-6ff75bd7c5c3",
+            "name": "POST error 405",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "enabled": true,
+                "name": "X-CSRFToken",
+                "value": "rItnskH8OJhYDsklQLsR0aEHOaKq5iXQ4fwmEylGbI6gWndi9ff61GBV4gJQmdU3"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
