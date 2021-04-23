@@ -3,28 +3,28 @@
 [![Build Status](https://travis-ci.com/multiscripter/kopipasta-django-sqlite.svg?branch=master)](https://travis-ci.com/multiscripter/kopipasta-django-sqlite)
 [![codecov](https://codecov.io/gh/multiscripter/kopipasta-django-sqlite/branch/master/graph/badge.svg?token=5RVW7RKFAK)](https://codecov.io/gh/multiscripter/kopipasta-django-sqlite)
 
-### категории:
+### Категории:
 - Мытищи
 - Страх и ненависть в Лас-Вегасе
 
-framework: **Django**
+каркас: **Django**
 
-data storage: **sqlite**
+база данных: **sqlite**
 
-testing: **unittest**
+тесты: **unittest**
 
-### Run from project root:
+### Запуск из корня проекта:
 
-#### Using Docker container:
+#### Используя Docker контейнер:
 - docker-compose build
 - docker-compose up -d
 
-**Run app:**
+**Запуск:**
 ```
 http://127.0.0.1:8000/
 ```
 
-**dependencies**
+**Зависимости**
 - Python==3.8.7
 - django==3.2
 - selenium==3.141.0
