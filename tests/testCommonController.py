@@ -4,9 +4,21 @@ import re
 from django.http import HttpRequest, QueryDict
 from django.test import TestCase
 
-from main.controllers.common import common
+from main.controllers.common import common, http400, http403, http404, http500
 from main.models.Category import Category
 from main.models.Item import Item
+
+
+# Запуск тестов класса через unittests:
+# python manage.py test tests.testCommonController.TestCommonController
+
+# Запуск всех тестов с покрытием через pytest:
+# pytest ./tests/* --cov
+
+# Запуск всех тестов с покрытием через unittests:
+# coverage erase
+# coverage run manage.py test
+# coverage html
 
 
 class TestCommonController(TestCase):
@@ -210,3 +222,61 @@ class TestCommonController(TestCase):
 
         data = json.loads(response.content)
         self.assertEqual(self.items[2], data['item'])
+
+    def test_http400_json(self):
+        """Тестирует http400(request, exception).
+        Content-Type: application/json"""
+
+        request = HttpRequest()
+        request.method = 'GET'
+        request.META['HTTP_ACCEPT'] = 'application/json'
+
+        response = http400(request, Exception())
+        self.assertEqual(400, response.status_code)
+
+        expected = {'code': 400, 'text': 'Плохой запрос'}
+        actual = json.loads(response.content)
+        self.assertEqual(expected, actual)
+
+    def test_http403_json(self):
+        """Тестирует http403(request, exception).
+        Content-Type: application/json"""
+
+        request = HttpRequest()
+        request.method = 'GET'
+        request.META['HTTP_ACCEPT'] = 'application/json'
+
+        response = http403(request, Exception())
+        self.assertEqual(403, response.status_code)
+
+        expected = {'code': 403, 'text': 'Доступ запрещён'}
+        actual = json.loads(response.content)
+        self.assertEqual(expected, actual)
+
+    def test_http404_json(self):
+        """Тестирует http404(request, exception).
+        Content-Type: application/json"""
+
+        request = HttpRequest()
+        request.method = 'GET'
+        request.META['HTTP_ACCEPT'] = 'application/json'
+
+        response = http404(request, Exception())
+        self.assertEqual(404, response.status_code)
+
+        expected = {'code': 404, 'text': 'Страница не&nbsp;найдена'}
+        actual = json.loads(response.content)
+        self.assertEqual(expected, actual)
+
+    def test_http500_html(self):
+        """Тестирует http500(request, exception)."""
+
+        request = HttpRequest()
+        request.method = 'GET'
+
+        response = http500(request)
+        self.assertEqual(500, response.status_code)
+
+        content = response.content.decode('utf-8')
+        actual = re.findall('Ошибка сервера', content, re.MULTILINE)
+        self.assertEqual(2, len(actual))

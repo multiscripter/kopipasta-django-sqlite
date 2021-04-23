@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru" class="page-http">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ code }} - {{ text }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <style>
+.page-http,
+.page-http body {
+    height: 100%;
+}
+.page-http body {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+}
+.http-num {
+    font-size: 120px;
+}
+.http-text {
+    font-size: 30px;
+}
+    </style>
+</head>
+<body class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="http-num">
+                {{ code }}
+            </div>
+            <div class="http-text">
+                {% autoescape off %}
+                {{ text }}
+                {% endautoescape %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

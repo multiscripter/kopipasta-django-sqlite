@@ -26,6 +26,55 @@
             "uri": {
               "query": {
                 "delimiter": "&",
+                "items": [
+                  {
+                    "enabled": true,
+                    "name": "action",
+                    "value": "next"
+                  },
+                  {
+                    "enabled": true,
+                    "name": "current_id",
+                    "value": "asdasd"
+                  }
+                ]
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:8000",
+              "path": ""
+            },
+            "id": "32b5c5eb-c8e3-4bd8-a964-7f20ed43ca85",
+            "name": "GET error 500",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Accept",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
                 "items": []
               },
               "scheme": {

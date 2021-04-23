@@ -14,10 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls.static import static
-from django.conf.urls import url
 from django.contrib import admin
 from django.urls import include, path
-from django.views.generic import RedirectView
 
 from core import settings
 
@@ -27,3 +25,8 @@ urlpatterns = [
     # Админка.
     path('admin/', admin.site.urls),
 ]# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+handler400 = 'main.controllers.common.http400'
+handler403 = 'main.controllers.common.http403'
+handler404 = 'main.controllers.common.http404'
+handler500 = 'main.controllers.common.http500'
