@@ -55,30 +55,37 @@ class ItemRepository:
         :return: элемент.
         """
 
+        data = {
+            'item': None,
+            'pos': None
+        }
         objects = Item.objects
+
         if category_id and int(category_id[0]) > 0:
             objects = objects.filter(category_id=category_id[0])
 
         if action and action[0] in ['first', 'last']:
             if action[0] == 'first':
                 objects = objects.order_by('id')
+                data['pos'] = 'first'
             elif action[0] == 'last':
                 objects = objects.order_by('-id')
+                data['pos'] = 'last'
 
         elif action and action[0] in ['prev', 'next'] and current_id:
             if action[0] == 'prev':
                 objects = objects.filter(id__lt=current_id[0]).order_by('-id')
                 if not objects.count():
-                    item = self.get_item(category_id, ['first'])
+                    data = self.get_item(category_id, ['first'])
 
             elif action[0] == 'next':
                 objects = objects.filter(id__gt=current_id[0]).order_by('id')
                 if not objects.count():
-                    item = self.get_item(category_id, ['last'])
+                    data = self.get_item(category_id, ['last'])
 
         else:
             objects = objects.order_by('?')
 
         if len(objects):
-            item = objects[0]
-        return item
+            data['item'] = objects[0]
+        return data

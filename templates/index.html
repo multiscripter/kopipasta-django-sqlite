@@ -13,23 +13,16 @@
         $(function() {
             var pastaLoader = {
                 catBox: null,
+                radios: null,
                 head: null,
                 body: null,
                 buttons: false,
 
-                getPhrase: function(action) {
+                getPhrase: function(params) {
                     var self = this;
-                    var params = ['current_id=' + self.head.data('id')];
-                    if (action == 'prev' || action == 'next')
-                        params.push('action=' + action);
-                    var cat = self.catBox.find('input:checked').val()
-                    if (cat && 0 < cat)
-                        params.push('category_id=' + cat);
-                    params = params.join('&');
-                    console.log(params);
-                    url = window.location.origin
+                    url = window.location.origin;
                     if (params)
-                        url += '?' + params
+                        url += '?' + params;
                     $.ajax({
                         url: url,
                         headers: { 'ACCEPT': 'application/json' }
@@ -40,23 +33,57 @@
                                 self.head.text(data.item.title);
                                 self.body.text(data.item.text);
                             }
+                            if (data.hasOwnProperty('pos')) {
+                                self.buttons.removeClass('disabled');
+                                if (data.pos == 'first')
+                                    self.buttons.eq(0).addClass('disabled');
+                                else if (data.pos == 'last')
+                                    self.buttons.eq(2).addClass('disabled');
+                            }
                         }
-                       console.log(data);
                     });
+                },
+
+                requestByRadios: function(value) {
+                    var params = 'category_id=' + value + '&action=first';
+                    this.getPhrase(params);
+                },
+
+                requestByButton: function(action) {
+                    var params = ['current_id=' + this.head.data('id')];
+                    if (action == 'prev' || action == 'next')
+                        params.push('action=' + action);
+                    var cat = this.catBox.find('input:checked').val();
+                    if (cat && 0 < cat)
+                        params.push('category_id=' + cat);
+                    params = params.join('&');
+                    this.getPhrase(params);
                 },
 
                 init: function() {
                     this.catBox = $('#cat-box');
+                    this.radios = this.catBox.find('.form-check-input');
                     this.head = $('#pasta-head');
                     this.body = $('#pasta-body');
                     this.buttons = $('#buttons .btn');
+
+                    if (this.radios.length) {
+                        var self = this;
+                        this.radios.each(function() {
+                            $(this).on('click', function(event) {
+                                radio = $(event.target);
+                                self.requestByRadios(radio.val());
+                            });
+                        });
+                    }
+
                     if (this.buttons.length) {
                         var self = this;
                         this.buttons.each(function() {
                             $(this).on('click', function(event) {
                                 event.preventDefault();
-                                action = $(this).attr('href').split('=')[1]
-                                self.getPhrase.call(self, action);
+                                action = $(this).attr('href').split('=')[1];
+                                self.requestByButton.call(self, action);
                             });
                         });
                     }
@@ -109,23 +136,26 @@
                 </header>
                 <p id="pasta-body">{{ item.text }}</p>
             </section>
-            <section id="buttons" class="text-center">
+            <section id="buttons" class="mb-3 text-center">
                 <a
                         id="btn-prev"
                         class="btn btn-primary btn-lg"
-                        href="?action=prev">
+                        href="?action=prev"
+                        role="button">
                     Назад
                 </a>
                 <a
                         id="btn-rand"
                         class="btn btn-primary btn-lg"
-                        href="?action=random">
+                        href="?action=random"
+                        role="button">
                     Случайно
                 </a>
                 <a
                         id="btn-next"
                         class="btn btn-primary btn-lg"
-                        href="?action=next">
+                        href="?action=next"
+                        role="button">
                     Вперёд
                 </a>
             </section>

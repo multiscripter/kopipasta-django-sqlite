@@ -11,18 +11,19 @@ def common(request):
     if request.method == 'GET':
         data = {}
         if request.GET:
-            item = repo.get_item(**request.GET)
+            result = repo.get_item(**request.GET)
         else:
-            item = repo.get_item()
+            result = repo.get_item()
+
+        data['pos'] = result['pos']
 
         if 'HTTP_ACCEPT' in request.META \
                 and request.META['HTTP_ACCEPT'] == 'application/json':
-            item = item.to_dict()
-            data['item'] = item
+            data['item'] = result['item'].to_dict()
             return JsonResponse(data)
         else:
             data = repo.get_category_data()
-            data['item'] = item
+            data['item'] = result['item']
             return render(request, 'index.html', data)
     else:
         return HttpResponseNotAllowed(['GET'])
