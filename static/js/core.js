@@ -37,7 +37,7 @@ $(function() {
         requestByCategory: function(value) {
             var params = 'action=first';
             if (parseInt(value) > 0)
-                params = '&category_id=' + value;
+                params += '&category_id=' + value;
             this.getPhrase(params);
         },
 
@@ -45,7 +45,7 @@ $(function() {
             var params = ['current_id=' + this.p_head.data('id')];
             if (action == 'prev' || action == 'next')
                 params.push('action=' + action);
-            var cat = this.catBox.find('input:checked').val();
+            var cat = this.catBox.find('select').val();
             if (cat && 0 < cat)
                 params.push('category_id=' + cat);
             params = params.join('&');

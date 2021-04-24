@@ -63,7 +63,7 @@ class TestFunctional(StaticLiveServerTestCase):
 
         # Сравнить h1 страницы.
         actual = self.browser.find_element_by_tag_name('h1').text
-        self.assertEqual('Копипастаv1', actual)
+        self.assertEqual('Копипаста', actual)
 
     @classmethod
     def tearDownClass(cls):

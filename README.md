@@ -24,9 +24,13 @@
 http://127.0.0.1:8000/
 ```
 
-**Зависимости**
+**Зависимости:**
 - Python==3.8.7
 - django==3.2
 - selenium==3.141.0
 - pytest-cov==2.11.1
 - pytest-django==4.2.0
+
+### Заценить:
+
+http://kopipasta.3141.ru/

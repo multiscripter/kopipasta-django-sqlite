@@ -28,7 +28,7 @@ class TestValidation(TestCase):
         self.assertEqual(expected, actual)
 
     def test_error_unknown_action(self):
-        """Ошибка: Unknown action"""
+        """Ошибка: Unknown action."""
 
         expected = {'action': 'Unknown action'}
 
