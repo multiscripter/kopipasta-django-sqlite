@@ -6,6 +6,12 @@ from main.models.Item import Item
 from main.services.ItemRepository import ItemRepository
 
 
+# Запуск всех тестов с покрытием через unittests:
+# coverage erase
+# coverage run manage.py test
+# coverage html
+
+
 class TestItemRepository(TestCase):
     """Unit-тесты ItemRepository."""
 

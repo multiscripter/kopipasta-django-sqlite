@@ -77,11 +77,15 @@ class ItemRepository:
                 objects = objects.filter(id__lt=current_id[0]).order_by('-id')
                 if not objects.count():
                     data = self.get_item(category_id, ['first'])
+                elif objects.count() == 1:
+                    data['pos'] = 'first'
 
             elif action[0] == 'next':
                 objects = objects.filter(id__gt=current_id[0]).order_by('id')
                 if not objects.count():
                     data = self.get_item(category_id, ['last'])
+                elif objects.count() == 1:
+                    data['pos'] = 'last'
 
         else:
             objects = objects.order_by('?')

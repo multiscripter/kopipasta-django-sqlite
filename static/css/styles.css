@@ -1,7 +1,7 @@
 body {
     cursor: default;
     font-size: 18px;
-    min-width: 320px;
+    min-width: 360px;
 }
 
 @media (min-width: 768px) {
@@ -30,11 +30,6 @@ label {
     font-size: 14px;
 }
 
-#cat-box {
-    display: flex;
-    justify-content: center;
-}
-
 #pasta-body {
     background: #eee;
     border-radius: 1rem;
@@ -55,4 +50,20 @@ label {
     box-shadow: none;
     text-shadow: 0 0 3px #fff;
     transition: none;
+}
+
+#cat-box .ui-button {
+    margin-right: 0;
+    padding: 0 5px;
+}
+
+#cat-box .ui-selectmenu-text {
+    line-height: 32px;
+}
+
+#cat-box .ui-button .ui-icon {
+    margin-top: -8px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
 }

@@ -7,124 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <script src="static/js/jquery-3.5.1.min.js"></script>
-    <script>
-        $(function() {
-            var pastaLoader = {
-                catBox: null,
-                radios: null,
-                head: null,
-                body: null,
-                buttons: false,
-
-                getPhrase: function(params) {
-                    var self = this;
-                    url = window.location.origin;
-                    if (params)
-                        url += '?' + params;
-                    $.ajax({
-                        url: url,
-                        headers: { 'ACCEPT': 'application/json' }
-                    }).done(function(data) {
-                        if (data) {
-                            if (data.hasOwnProperty('item')) {
-                                self.head.data('id', data.item.id);
-                                self.head.text(data.item.title);
-                                self.body.text(data.item.text);
-                            }
-                            if (data.hasOwnProperty('pos')) {
-                                self.buttons.removeClass('disabled');
-                                if (data.pos == 'first')
-                                    self.buttons.eq(0).addClass('disabled');
-                                else if (data.pos == 'last')
-                                    self.buttons.eq(2).addClass('disabled');
-                            }
-                        }
-                    });
-                },
-
-                requestByRadios: function(value) {
-                    var params = 'category_id=' + value + '&action=first';
-                    this.getPhrase(params);
-                },
-
-                requestByButton: function(action) {
-                    var params = ['current_id=' + this.head.data('id')];
-                    if (action == 'prev' || action == 'next')
-                        params.push('action=' + action);
-                    var cat = this.catBox.find('input:checked').val();
-                    if (cat && 0 < cat)
-                        params.push('category_id=' + cat);
-                    params = params.join('&');
-                    this.getPhrase(params);
-                },
-
-                init: function() {
-                    this.catBox = $('#cat-box');
-                    this.radios = this.catBox.find('.form-check-input');
-                    this.head = $('#pasta-head');
-                    this.body = $('#pasta-body');
-                    this.buttons = $('#buttons .btn');
-
-                    if (this.radios.length) {
-                        var self = this;
-                        this.radios.each(function() {
-                            $(this).on('click', function(event) {
-                                radio = $(event.target);
-                                self.requestByRadios(radio.val());
-                            });
-                        });
-                    }
-
-                    if (this.buttons.length) {
-                        var self = this;
-                        this.buttons.each(function() {
-                            $(this).on('click', function(event) {
-                                event.preventDefault();
-                                action = $(this).attr('href').split('=')[1];
-                                self.requestByButton.call(self, action);
-                            });
-                        });
-                    }
-                }
-            }
-            pastaLoader.init();
-        });
-    </script>
+    <script src="static/js/jquery-ui.min.js"></script>
+    <script src="static/js/core.js"></script>
 </head>
 <body class="container">
     <div class="row">
         <div class="col">
             <h1 class="text-center">Копипаста<span id="ver">v1</span></h1>
-            <section id="cat-box" class="mb-2">
-                <div class="form-check form-check-inline">
-                    <input
-                            class="form-check-input"
-                            type="radio"
-                            name="category"
+            <section id="cat-box" class="text-center mb-4">
+                <header>
+                    <label class="cat-label" for="cat-menu">
+                        Выберите категорию:
+                    </label>
+                </header>
+                <select id="cat-menu" name="category">
+                    <option
                             id="cat-0"
+                            class="select-item"
                             value="0"
-                            checked>
-                    <label class="form-check-label" for="cat-0">
+                            selected="selected">
                         Все ({{ all }})
-                    </label>
-                </div>
-                {% if cats %}
-                {% for cat in cats %}
-                <div class="form-check form-check-inline">
-                    <input
-                            class="form-check-input"
-                            type="radio"
-                            name="category"
+                    </option>
+                    {% if cats %}
+                        {% for cat in cats %}
+                    <option
                             id="cat-{{ cat.id }}"
+                            class="select-item"
                             value="{{ cat.id }}">
-                    <label class="form-check-label" for="cat-{{ cat.id }}">
                         {{ cat.name }} ({{ cat.qty }})
-                    </label>
-                </div>
-                {% endfor %}
-                {% endif %}
+                    </option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
             </section>
             <section id="pasta">
                 <header>

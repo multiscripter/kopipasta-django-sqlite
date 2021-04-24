@@ -64,12 +64,11 @@ class TestCommonController(TestCase):
 
     def test_common_get_random_no_category_html(self):
         """Тестирует common.common(request).
-        request-параметры: action=random
         Content-Type: text/html"""
 
         request = HttpRequest()
         request.method = 'GET'
-        request.GET = QueryDict(query_string='action=random')
+        request.GET = QueryDict()
         response = common(request)
         self.assertEqual(200, response.status_code)
 
@@ -93,13 +92,12 @@ class TestCommonController(TestCase):
 
     def test_common_get_random_no_category_json(self):
         """Тестирует common.common(request).
-        request-параметры: action=random,
         Content-Type: application/json"""
 
         request = HttpRequest()
         request.method = 'GET'
         request.META['HTTP_ACCEPT'] = 'application/json'
-        request.GET = QueryDict(query_string='action=random')
+        request.GET = QueryDict()
         response = common(request)
         self.assertEqual(200, response.status_code)
 
@@ -110,14 +108,14 @@ class TestCommonController(TestCase):
 
     def test_common_get_random_with_category_json(self):
         """Тестирует common.common(request).
-        request-параметры: action=random, category_id
+        request-параметры: category_id
         Content-Type: application/json"""
 
         cat_id = 1
         request = HttpRequest()
         request.method = 'GET'
         request.META['HTTP_ACCEPT'] = 'application/json'
-        query_str = f'action=random&category_id={cat_id}'
+        query_str = f'category_id={cat_id}'
         request.GET = QueryDict(query_string=query_str)
         response = common(request)
         self.assertEqual(200, response.status_code)
@@ -216,6 +214,38 @@ class TestCommonController(TestCase):
         request.method = 'GET'
         request.META['HTTP_ACCEPT'] = 'application/json'
         query_str = 'current_id=5&action=next&category_id=1'
+        request.GET = QueryDict(query_string=query_str)
+        response = common(request)
+        self.assertEqual(200, response.status_code)
+
+        data = json.loads(response.content)
+        self.assertEqual(self.items[2], data['item'])
+
+    def test_common_get_item_prev_is_first(self):
+        """Тестирует common.common(request).
+        request-параметры: category_id=1, action=prev, current_id=2
+        Content-Type: application/json"""
+
+        request = HttpRequest()
+        request.method = 'GET'
+        request.META['HTTP_ACCEPT'] = 'application/json'
+        query_str = 'current_id=2&action=prev&category_id=1'
+        request.GET = QueryDict(query_string=query_str)
+        response = common(request)
+        self.assertEqual(200, response.status_code)
+
+        data = json.loads(response.content)
+        self.assertEqual(self.items[0], data['item'])
+
+    def test_common_get_item_next_is_last(self):
+        """Тестирует common.common(request).
+        request-параметры: category_id=1, action=next, current_id=2
+        Content-Type: application/json"""
+
+        request = HttpRequest()
+        request.method = 'GET'
+        request.META['HTTP_ACCEPT'] = 'application/json'
+        query_str = 'current_id=2&action=next&category_id=1'
         request.GET = QueryDict(query_string=query_str)
         response = common(request)
         self.assertEqual(200, response.status_code)

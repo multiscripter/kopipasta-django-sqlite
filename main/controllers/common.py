@@ -2,6 +2,7 @@ from django.http import HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import render
 
 from main.services.ItemRepository import ItemRepository
+from main.services.validation import validate
 
 
 def common(request):
@@ -10,15 +11,21 @@ def common(request):
     repo = ItemRepository()
     if request.method == 'GET':
         data = {}
+        result = {'pos': None}
+
+        is_json = 'HTTP_ACCEPT' in request.META \
+                  and request.META['HTTP_ACCEPT'] == 'application/json'
+
         if request.GET:
-            result = repo.get_item(**request.GET)
+            data['errors'] = validate(request.GET)
+            if not data['errors']:
+                result = repo.get_item(**request.GET)
         else:
             result = repo.get_item()
 
         data['pos'] = result['pos']
 
-        if 'HTTP_ACCEPT' in request.META \
-                and request.META['HTTP_ACCEPT'] == 'application/json':
+        if is_json:
             data['item'] = result['item'].to_dict()
             return JsonResponse(data)
         else:
