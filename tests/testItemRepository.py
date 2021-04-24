@@ -1,9 +1,9 @@
 from django.test import TestCase
 from unittest.mock import patch
 
-from main.models.Category import Category
-from main.models.Item import Item
-from main.services.ItemRepository import ItemRepository
+from kopipasta.models.Category import Category
+from kopipasta.models.Item import Item
+from kopipasta.services.ItemRepository import ItemRepository
 
 
 # Запуск всех тестов с покрытием через unittests:

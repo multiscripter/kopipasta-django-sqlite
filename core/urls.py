@@ -21,12 +21,12 @@ from core import settings
 
 urlpatterns = [
     # Главная страница сайта.
-    path('', include('main.urls')),
+    path('', include('kopipasta.urls')),
     # Админка.
     path('admin/', admin.site.urls),
 ]# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-handler400 = 'main.controllers.common.http400'
-handler403 = 'main.controllers.common.http403'
-handler404 = 'main.controllers.common.http404'
-handler500 = 'main.controllers.common.http500'
+handler400 = 'kopipasta.controllers.common.http400'
+handler403 = 'kopipasta.controllers.common.http403'
+handler404 = 'kopipasta.controllers.common.http404'
+handler500 = 'kopipasta.controllers.common.http500'

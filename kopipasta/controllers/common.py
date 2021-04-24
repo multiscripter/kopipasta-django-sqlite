@@ -1,8 +1,8 @@
 from django.http import HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import render
 
-from main.services.ItemRepository import ItemRepository
-from main.services.validation import validate
+from kopipasta.services.ItemRepository import ItemRepository
+from kopipasta.services.validation import validate
 
 
 def common(request):

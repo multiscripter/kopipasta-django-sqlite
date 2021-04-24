@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
                 ('id', models.SmallAutoField(primary_key=True, serialize=False, verbose_name='ИД')),
                 ('title', models.CharField(max_length=256, verbose_name='Заголовок')),
                 ('text', models.TextField(verbose_name='Текст')),
-                ('next', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='prev_item', to='main.item', verbose_name='сдедующий')),
-                ('prev', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='next_item', to='main.item', verbose_name='предыдущий')),
+                ('next', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='prev_item', to='kopipasta.item', verbose_name='сдедующий')),
+                ('prev', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='next_item', to='kopipasta.item', verbose_name='предыдущий')),
             ],
             options={
                 'verbose_name': 'Элемент',

@@ -7,13 +7,13 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0002_auto_20210420_1015'),
+        ('kopipasta', '0002_auto_20210420_1015'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='item',
             name='category',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='category', to='main.category'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='category', to='kopipasta.category'),
         ),
     ]

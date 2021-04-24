@@ -1,6 +1,6 @@
 from django.db import models
 
-from main.models.Category import Category
+from kopipasta.models.Category import Category
 
 
 class Item(models.Model):

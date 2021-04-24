@@ -2,8 +2,8 @@ import os
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
-from main.models.Category import Category
-from main.models.Item import Item
+from kopipasta.models.Category import Category
+from kopipasta.models.Item import Item
 
 
 # Запуск тестов класса через unittests:

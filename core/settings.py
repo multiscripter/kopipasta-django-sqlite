@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'kopipasta.bot.net']
 # Application definition
 
 INSTALLED_APPS = [
-    'main.apps.MainConfig',
+    'kopipasta.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

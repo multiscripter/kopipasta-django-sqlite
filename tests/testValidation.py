@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from main.services.validation import validate
+from kopipasta.services.validation import validate
 
 # Запуск тестов класса через unittests:
 # python manage.py test tests.testValidation.TestValidation

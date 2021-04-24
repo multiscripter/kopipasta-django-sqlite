@@ -4,9 +4,9 @@ import re
 from django.http import HttpRequest, QueryDict
 from django.test import TestCase
 
-from main.controllers.common import common, http400, http403, http404, http500
-from main.models.Category import Category
-from main.models.Item import Item
+from kopipasta.controllers.common import common, http400, http403, http404, http500
+from kopipasta.models.Category import Category
+from kopipasta.models.Item import Item
 
 
 # Запуск тестов класса через unittests:

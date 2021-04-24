@@ -1,6 +1,6 @@
 from django.db import connection
 import logging
-from main.models.Item import Item
+from kopipasta.models.Item import Item
 
 
 class ItemRepository:
@@ -20,12 +20,12 @@ class ItemRepository:
         try:
             cursor = connection.cursor()
             query = 'select mc.id, name, count(mi.id) as qty'
-            query += ' from main_item mi, main_category mc'
+            query += ' from kopipasta_item mi, kopipasta_category mc'
             query += ' where mc.id = mi.category_id'
             query += ' group by mi.category_id'
             query += ' union'
             query += ' select 0, "all", count(id) as qty'
-            query += ' from main_item'
+            query += ' from kopipasta_item'
             cursor.execute(query)
             result = cursor.fetchall()
             if result:

@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from main.models.Category import Category
-from main.models.Item import Item
+from kopipasta.models.Category import Category
+from kopipasta.models.Item import Item
 
 
 class TestModels(TestCase):

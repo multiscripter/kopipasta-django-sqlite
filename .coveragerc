@@ -1,8 +1,8 @@
 [run]
 source =
-    ./main/controllers/
-    ./main/models/
-    ./main/services/
+    ./kopipasta/controllers/
+    ./kopipasta/models/
+    ./kopipasta/services/
 
 omit =
     */__init__.py
